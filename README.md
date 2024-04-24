@@ -83,5 +83,38 @@ the ip address for interface A1 can be any of the addresses in this range except
 
 interface B1:
 
-the subnet mask must match that ofd interface A1 as there is no router.
+the subnet mask must match that of interface A1 as there is no router.
 - subnet mask should be **255.255.255.224 or /27**.
+
+interface C1 & D1
+
+subnet mask 255.255.255.252 = 11111111.11111111.11111111.11111100 = /30
+this mask has 64 subnets with 4 addresses each.
+again the first and last addesses of each subnet are the host and broadcast addresses.
+this leaves the middle 2 host addresses per subnet.
+the original ip addresses in these boxes seem like they would work but 127.0.0.0 adresses are reserved for loopback and IPC on the local host.
+
+------------------------------------------
+level 3
+<br><br><br>
+interface A1:
+
+the subnet mask for all interfaces need to match the given unchangable mask of interface C1.
+- 255.255.255.128 or /25.
+
+interface B1:
+
+the subnet mask for all interfaces need to match the given unchangable mask of interface C1.
+- 255.255.255.128 or /25.
+the ip address range for based on the subnet mask and the given unchangable ip address at interface A1 is **104.198.180.0 - 104.198.180.127**.
+the ip address for interface B1 must be:
+- within that range.
+- not the host or broadcast addresses.
+- not the same as the addresses at A1 and C1.
+
+interface C1:
+the ip address range for based on the subnet mask and the given unchangable ip address at interface A1 is **104.198.180.0 - 104.198.180.127**.
+the ip address for interface C1 must be:
+- within that range.
+- not the host or broadcast addresses.
+- not the same as the addresses at A1 and B1.
