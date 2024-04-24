@@ -2,7 +2,7 @@
 
 ------------------------------------------
 calculating number of subnets and range of ip addresses from subnet mask
-<br><br>
+<br><br><br>
 to calculate the number of subnets and range of ip addresses from subnet mask first you need to convert the non-255 bytes of the subnet mask to binary.
 this can be done by repeatedly dividing by 2 and keeping track of the remainder as shown below.
 converting 192 to binary:
