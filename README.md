@@ -118,3 +118,14 @@ the ip address for interface C1 must be:
 - within that range.
 - not the host or broadcast addresses.
 - not the same as the addresses at A1 and B1.
+
+------------------------------------------
+level 4
+<br><br><br>
+
+the subnet masks for interface A1, interface B1, & interface R1 must all be the same and must be able to support 3 host addresses.
+the ip addresses for interface B1, & interface R1 must be in the same subnet range as the given A1 ip (122.130.111.132).
+
+------------------------------------------
+level 5
+<br><br><br>
