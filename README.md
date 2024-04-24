@@ -24,7 +24,9 @@ so 224 in binary is 11100000.
 
 this binary number is then used to calculate the number of subnets and range of ip addresses.
 the formula to calculate the number of subnets is:
+
 **Number of subnets=2<sup>n</sup>**
+
 where *n* is the number of bits used for subnetting.
 
 ------------------------------------------
