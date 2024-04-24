@@ -80,3 +80,8 @@ the ip address for interface A1 can be any of the addresses in this range except
 - 192.168.59.191 - host.
 - 192.168.59.223 - broadcast.
 - 192.168.59.222 - taken by interface B1.
+
+interface B1:
+
+the subnet mask must match that ofd interface A1 as there is no router.
+- subnet mask should be **255.255.255.224 or /27**.
