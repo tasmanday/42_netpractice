@@ -38,10 +38,10 @@ where *m* is the number of host bits.
 so for 255.255.255.192 (or in binary: 11111111.11111111.11111111.11000000)
 the number of subnets would be 2<sup>2</sup> = 4 and the number of ip addresses per subnet would be 2<sup>6</sup> = 64.
 the range of ip addresses for the 4 subnets would be:
-255.255.255.0 - 255.255.255.63
-255.255.255.64 - 255.255.255.127
-255.255.255.128 - 255.255.255.191
-255.255.255.192 - 255.255.255.255
+| 255.255.255.0 - 255.255.255.63 |
+| 255.255.255.64 - 255.255.255.127 |
+| 255.255.255.128 - 255.255.255.191 |
+| 255.255.255.192 - 255.255.255.255 |
 
 the first and last addresses from each subnet are reserved for the network and broadcast address respectively.
 
