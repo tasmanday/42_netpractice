@@ -44,9 +44,14 @@ the range of ip addresses for the 4 subnets would be:
 
 the first and last addresses from each subnet are reserved for the network and broadcast address respectively.
 
+slash notation is also based on the binary subnet masks.
+it shows the number of bits in the ip address that represent the network address (1's at the start).
+
+**decimal 255.255.255.192 = binary 11111111.11111111.11111111.11000000 = slash /26**
+
 ------------------------------------------
 level 1
-<br><br>
+<br><br><br>
 interface A1:
 
 subnet mask is 255.255.255.0 so the first 3 bytes of the ip need to match interface B1's ip (104.98.23.12).
@@ -65,3 +70,4 @@ this means ip address can be any in the range 211.191.0.0 - 211.191.255.255 exce
 
 ------------------------------------------
 level 2
+<br><br><br>
