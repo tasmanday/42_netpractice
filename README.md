@@ -6,28 +6,44 @@ calculating number of subnets and range of ip addresses from subnet mask
 
 to calculate the number of subnets and range of ip addresses from subnet mask first you need to convert the non-255 bytes of the subnet mask to binary.
 this can be done by repeatedly dividing by 2 and keeping track of the remainder as shown below.
-converting 224 to binary:
+converting 192 to binary:
 
 |	| remainder |
 |:----:|:----:|
-| 224 ÷ 2 = 112 | 0 |
-| 112 ÷ 2 = 56 | 0 |
-| 56 ÷ 2 = 28 | 0 |
-| 28 ÷ 2 = 14 | 0 |
-| 14 ÷ 2 = 7 | 0 |
-| 7 ÷ 2 = 3 | 1 |
+| 192 ÷ 2 = 96 | 0 |
+| 96 ÷ 2 = 48 | 0 |
+| 48 ÷ 2 = 24 | 0 |
+| 24 ÷ 2 = 12 | 0 |
+| 12 ÷ 2 = 6 | 0 |
+| 6 ÷ 2 = 3 | 0 |
 | 3 ÷ 2 = 1 | 1 |
 | 1 ÷ 2 = 0 | 1 |
 
 the binary number is the remainders read in reverse order (from last to first).
-so 224 in binary is 11100000.
+so 192 in binary is 11000000.
 
 this binary number is then used to calculate the number of subnets and range of ip addresses.
 the formula to calculate the number of subnets is:
 
-**Number of subnets=2<sup>n</sup>**
+**Number of subnets = 2<sup>n</sup>**
 
 where *n* is the number of bits used for subnetting.
+
+the formula to calculate the number of ip addresses per subnet is:
+
+**Number of ip addresses = 2<sup>m</sup>**
+
+where *m* is the number of host bits.
+
+so for 255.255.255.192 (or in binary: 11111111.11111111.11111111.11000000)
+the number of subnets would be 2<sup>2</sup> = 4 and the number of ip addresses per subnet would be 2<sup>6</sup> = 64.
+the range of ip addresses for the 4 subnets would be:
+255.255.255.0 - 255.255.255.63
+255.255.255.64 - 255.255.255.127
+255.255.255.128 - 255.255.255.191
+255.255.255.192 - 255.255.255.255
+
+the first and last addresses from each subnet are reserved for the network and broadcast address respectively.
 
 ------------------------------------------
 level 1
