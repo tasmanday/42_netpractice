@@ -122,10 +122,16 @@ the ip address for interface C1 must be:
 ------------------------------------------
 level 4
 <br><br><br>
-
 the subnet masks for interface A1, interface B1, & interface R1 must all be the same and must be able to support 3 host addresses.
 the ip addresses for interface B1, & interface R1 must be in the same subnet range as the given A1 ip (122.130.111.132).
 
 ------------------------------------------
 level 5
 <br><br><br>
+interface A1:
+
+the subnet mask for interface A1 must match that of interface R1 and the ip address must be in the same subnet ip range.
+this ip range is 50.24.79.0 - 50.24.79.127 but since the first and last addresses are reserved and 50.24.79.126 is already taken by interface R1, the possible acceptable host addresses for interface A1 are 50.24.79.1 - 50.24.79.125.
+
+Host A Routes:
+
