@@ -131,7 +131,18 @@ level 5
 interface A1:
 
 the subnet mask for interface A1 must match that of interface R1 and the ip address must be in the same subnet ip range.
-this ip range is 50.24.79.0 - 50.24.79.127 but since the first and last addresses are reserved and 50.24.79.126 is already taken by interface R1, the possible acceptable host addresses for interface A1 are 50.24.79.1 - 50.24.79.125.
+this ip range is 50.24.79.0 - 50.24.79.127 but the first and last addresses are reserved and 50.24.79.126 is already taken by interface R1.
+- the possible acceptable host addresses for interface A1 are 50.24.79.1 - 50.24.79.125.
+- the subnet mask is 255.255.255.128
 
 Host A Routes:
 
+since there is only one route that host A canb send it's packets the destination can be default.
+the next hop is the ip address of the next router (or internet) interface to which the interface of the current machine must send its packets.
+for host A the next router interface is interface R1.
+- destination is 'default'
+- next hop is 50.24.79.126
+
+interface B1:
+
+the subnet mask for interface B1 must match that of interface R2 and the ip address must be in the same subnet ip range.
