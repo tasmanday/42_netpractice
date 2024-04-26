@@ -148,7 +148,7 @@ this ip range is 50.24.79.0 - 50.24.79.127 but the first and last addresses are 
 
 Host A Routes:
 
-since there is only one route that host A canb send it's packets the destination can be default.
+since there is only one route that host A can send it's packets the destination can be default.
 the next hop is the ip address of the next router (or internet) interface to which the interface of the current machine must send its packets.
 for host A the next router interface is interface R1.
 - destination is 'default'
@@ -157,3 +157,16 @@ for host A the next router interface is interface R1.
 interface B1:
 
 the subnet mask for interface B1 must match that of interface R2 and the ip address must be in the same subnet ip range.
+this ip range is 134.118.128.0 - 134.118.255.255 but the first and last addresses are reserved and 134.118.218.254 is already taken by interface R2.
+- the possible acceptable host addresses for interface A1 are 134.118.128.1 - 134.118.255.254 excluding 134.118.218.254.
+- the subnet mask is 255.255.192.0
+
+Host B Routes:
+
+as above with Host A the destination can be default and the next hop is the ip address of the next router interface.
+- destination is 'default'
+- next hop is 134.118.218.254
+
+------------------------------------------
+level 6
+<br><br><br>
