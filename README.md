@@ -304,3 +304,7 @@ Host D Routes:
 destination should be default and next hop needs to be router R2 interface R23's ip address.
 - destination is default (0.0.0.0/0)
 - next hop is 147.64.136.18
+
+------------------------------------------
+level 9
+<br><br><br>
