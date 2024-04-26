@@ -143,7 +143,7 @@ interface A1:
 
 the subnet mask for interface A1 must match that of interface R1 and the ip address must be in the same subnet ip range.
 this ip range is 50.24.79.0 - 50.24.79.127 but the first and last addresses are reserved and 50.24.79.126 is already taken by interface R1.
-- the possible acceptable host addresses for interface A1 are 50.24.79.1 - 50.24.79.125.
+- the possible acceptable host addresses for interface A1 are 50.24.79.1 - 50.24.79.125
 - the subnet mask is 255.255.255.128
 
 Host A Routes:
@@ -158,7 +158,7 @@ interface B1:
 
 the subnet mask for interface B1 must match that of interface R2 and the ip address must be in the same subnet ip range.
 this ip range is 134.118.128.0 - 134.118.255.255 but the first and last addresses are reserved and 134.118.218.254 is already taken by interface R2.
-- the possible acceptable host addresses for interface A1 are 134.118.128.1 - 134.118.255.254 excluding 134.118.218.254.
+- the possible acceptable host addresses for interface A1 are 134.118.128.1 - 134.118.255.254 excluding 134.118.218.254
 - the subnet mask is 255.255.192.0
 
 Host B Routes:
@@ -170,3 +170,67 @@ as above with Host A the destination can be default and the next hop is the ip a
 ------------------------------------------
 level 6
 <br><br><br>
+interface A1:
+
+subnet mask needs to match interface R1
+- subnet mask is 255.255.255.128
+
+Host A Routes:
+
+destination should be default and next hop needs to be router interface R1's ip address.
+setting the destination to default means that any packets that don't have a destination within the subnet will be passed to the next hop address which points to interface R1 of the router.
+- destination is default (0.0.0.0/0)
+- next hop is 91.84.197.254
+
+interface R1:
+
+the router interface R1 already has the subnet mask provided and locked in, the ip address needs to be in the same subnet as interface A1.
+this ip range is 91.84.197.128 - 91.84.197.255 but the first and last addresses are reserved and 91.84.197.227 is already taken by interface A1.
+- the possible acceptable host addresses for interface R1 are 91.84.197.129 - 91.84.197.254 excluding 91.84.197.227
+
+Router R Routes:
+
+destination for router R should be default which means if a packet is not destined for an address within the network, it will send it to the next hop address which points to the internet.
+- destination is default (0.0.0.0/0)
+
+Internet I Routes:
+
+the destination for internet I should point to the network address of the subnet that interface A1 is on, combined with the CDIR of the network.
+/25 indicates that the first 25 bits of the network address represent the network.
+adding the CDIR (/25) to the network address informs the internet route that any packets addressed to ip addresses within the range of 91.84.197.128 - 91.84.197.255 should use the next hop address.
+- destination is 91.84.197.128/25
+
+------------------------------------------
+level 7
+<br><br><br>
+for level 7 we need to establish 3 separate networks, host A - router R1, router R1 - router R2, router R2 - host C.
+to do this we need to use a subnet mask that can create at least 3 subnets which means /26 (255.255.255.192) or higher.
+- I set the subnet mask to 255.255.255.192 for all interfaces.
+
+interface A1:
+
+the ip address needs to be in the same subnet as interface R11, since R11's ip has been given the subnet for this pair has already been decided.
+the range of ip addresses for this subnet are 92.198.14.0 - 92.198.14.63 but the first and last addresses are reserved and 92.198.14.1 is already taken by interface R11.
+- the possible acceptable host addresses for interface A1 are 92.198.14.2 - 92.198.14.62
+
+Host A Routes:
+
+destination should be default and next hop needs to be router interface R11's ip address.
+- destination is default (0.0.0.0/0)
+- next hop is 92.198.14.1
+
+interface R11 & R12:
+
+the ip addresses for both these interfaces are given and locked so we just need to change the subnet mask to 255.255.255.192
+
+Router R1 Routes:
+
+destination should be default and next hop needs to be router R2 interface R21's ip address.
+- destination is default (0.0.0.0/0)
+- next hop is 92.198.14.253
+
+interface R21:
+
+the ip address needs to be in the same subnet as interface R12, since R12's ip has been given the subnet for this pair has already been decided.
+the range of ip addresses for this subnet are 92.198.14.192 - 92.198.14.255 but the first and last addresses are reserved and 92.198.14.254 is already taken by interface R12.
+- the possible acceptable host addresses for interface A1 are 92.198.14.193 - 92.198.14.253
