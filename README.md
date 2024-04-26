@@ -3,7 +3,7 @@
 ------------------------------------------
 calculating number of subnets and range of ip addresses from subnet mask
 <br><br><br>
-to calculate the number of subnets and range of ip addresses from subnet mask first you need to convert the non-255 bytes of the subnet mask to binary.
+to calculate the number of subnets and range of ip addresses from subnet mask first you need to convert the first non-255 octet of the subnet mask to binary. so for 255.255.255.192 we look at the forth octet (192).
 this can be done by repeatedly dividing by 2 and keeping track of the remainder as shown below.
 converting 192 to binary:
 
@@ -26,28 +26,39 @@ the formula to calculate the number of subnets is:
 
 **Number of subnets = 2<sup>n</sup>**
 
-where *n* is the number of bits used for subnetting (1s in binary subnet mask).
+where *n* is the number of bits used for subnetting (1s in non-255 octet of binary subnet mask).
 
 the formula to calculate the number of ip addresses per subnet is:
 
 **Number of ip addresses = 2<sup>m</sup>**
 
-where *m* is the number of host bits (0s in binary subnet mask).
+where *m* is the number of host bits (0s in entire binary subnet mask).
 
 so for 255.255.255.192 (or in binary: 11111111.11111111.11111111.11000000)
 the number of subnets would be 2<sup>2</sup> = 4 and the number of ip addresses per subnet would be 2<sup>6</sup> = 64.
 the range of ip addresses for the 4 subnets would be:
-- 255.255.255.0 - 255.255.255.63
-- 255.255.255.64 - 255.255.255.127
-- 255.255.255.128 - 255.255.255.191
-- 255.255.255.192 - 255.255.255.255
+- x.x.x.0 - x.x.x.63
+- x.x.x.64 - x.x.x.127
+- x.x.x.128 - x.x.x.191
+- x.x.x.192 - x.x.x.255
 
-the first and last addresses from each subnet are reserved for the network and broadcast address respectively.
+the first and last addresses from each subnet are reserved for the network and broadcast addresses respectively.
 
 slash notation is also based on the binary subnet masks.
 it shows the number of bits in the ip address that represent the network address (1's at the start).
 
 **decimal 255.255.255.192 = binary 11111111.11111111.11111111.11000000 = slash /26**
+
+the same calculation can be done when there is less octets containing only network bits. **225.225.128.0** for example.
+225.225.128.0 in binary is 11111111.11111111.10000000.00000000.
+for this subnet mask we look at the third octet (128 or 10000000).
+2<sup>1</sup> = 2 so there are 2 subnet masks and the number of ip addresses per subnet would be 2<sup>15</sup> = 32768.
+with so many addresses per subnet we can't easily use that to work out the range of ip adresses per subnet like we could with 255.255.255.192.
+instead if we divide 256 by the number of subnet masks we can apply that to the first non-255 octet to work out the ip ranges.
+so for 225.225.128.0 (11111111.11111111.10000000.00000000) 256 / 2 = 128.
+the ranges of ip addresses per subnet would be:
+- x.x.0.0 - x.x.127.255
+- x.x.128.0 - x.x.255.255
 
 ------------------------------------------
 level 1
