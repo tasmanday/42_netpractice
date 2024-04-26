@@ -26,13 +26,13 @@ the formula to calculate the number of subnets is:
 
 **Number of subnets = 2<sup>n</sup>**
 
-where *n* is the number of bits used for subnetting.
+where *n* is the number of bits used for subnetting (1s in binary subnet mask).
 
 the formula to calculate the number of ip addresses per subnet is:
 
 **Number of ip addresses = 2<sup>m</sup>**
 
-where *m* is the number of host bits.
+where *m* is the number of host bits (0s in binary subnet mask).
 
 so for 255.255.255.192 (or in binary: 11111111.11111111.11111111.11000000)
 the number of subnets would be 2<sup>2</sup> = 4 and the number of ip addresses per subnet would be 2<sup>6</sup> = 64.
