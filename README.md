@@ -442,3 +442,64 @@ we need the internet to be able to return packets to host A and host C so we nee
 - next hop 3 is 163.172.250.12 (provided)
 
 ------------------------------------------
+level 10
+<br><br><br>
+for this level the structure is pretty much the same as level 9 in that we have 3 individual groups to work on first and then connect them all together. the challenge with this one though is that we only have one destination on the internet's routing table which means that we are limited in what subnets we can use.
+
+group H1/H2:
+
+the subnet mask and ip range for this group are already provided at interface R11.
+
+interface H11:
+- ip address is 147.65.114.2 (provided)
+- subnet mask is 255.255.255.128 (/25)
+
+interface H21:
+- ip address is 147.65.114.3
+- subnet mask is 255.255.255.128 (/25)
+
+because this group is using 255.255.255.128 (/25) as a subnet mask, the ip range 147.65.114.0 - 147.65.114.127 cannot be used by any of the other groups.
+
+group H4:
+
+the ip and subnet mask for interface R23 is already given to us in interface H41 and host H4 routes.
+
+interface R23:
+- ip address is 147.65.114.129
+- subnet mask is 255.255.255.192 (/26)
+
+this group uses the ip address range 147.65.114.128 - 147.65.114.191 so those addresses can't be used by other groups.
+
+group H3:
+
+we are starting to run low on ip addresses.
+the ranges that have already been taken are:
+- 147.65.114.0 - 147.65.114.127 group H1/H2
+- 147.65.114.128 - 147.65.114.191 group H4
+- 147.65.114.253 - 147.65.114.254 interface R13/R21
+
+luckily we only need 2 addresses for this group so we can use 255.255.255.252 (/30) as a subnet mask and chose 2 of the remaining addresses.
+
+interface R22:
+- ip address is 147.65.114.250
+- subnet mask is 255.255.255.252 (/30)
+
+interface H31:
+- ip address is 147.65.114.249
+- subnet mask is 255.255.255.252 (/30)
+
+Host H3 Routes:
+- destination is default (0.0.0.0/0) (provided)
+- next hop is 147.65.114.250 (interface R22 address)
+
+<br><br>
+lastly we just need to match the subnet address at interface R13 and fix the routing tables for the internet and router R1.
+
+interface R13:
+- subnet mask is 255.255.255.252 (/30)
+
+internet I Routes:
+- destination is 147.65.114.0/24
+
+router R1 Routes:
+- destination is 147.65.114.0/24
