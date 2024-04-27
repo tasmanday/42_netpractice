@@ -395,7 +395,8 @@ Host B Routes:
 destination should be default and next hop should be the ip address of interface R11.
 - destination is default (0.0.0.0/0)
 - next hop is 42.42.42.1
-<br><br><br>
+
+<br><br>
 after sorting out those 3 individual groups we need to connect the 2 routers and make sure that host A (meson) & host C (cation) can connect to the internet.
 
 routers:
