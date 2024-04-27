@@ -61,6 +61,16 @@ the ranges of ip addresses per subnet would be:
 - x.x.128.0 - x.x.255.255
 
 ------------------------------------------
+reserved ip address ranges
+
+the following ip address ranges are reserved:
+- 10.0.0.0 -> 10.255.255.255
+- 172.16.0.0 -> 172.31.255.255
+- 192.168.0.0 -> 192.168.255.255
+- 127.0.0.0 -> 127.255.255.255
+- 224.0.0.0 -> 239.255.255.255
+
+------------------------------------------
 level 1
 <br><br><br>
 interface A1:
@@ -308,4 +318,126 @@ destination should be default and next hop needs to be router R2 interface R23's
 ------------------------------------------
 level 9
 <br><br><br>
+for this level we have 3 seperate networks that we need to organise and then we can connect them all together.
+the individual networks are:
+- group AB - interface A1, interface B1, & interface R11
+- group C - interface C1, & interface R22
+- group D - interface D1, & interface R23
+I usually start with the third group as interface R23 already has all of it's information provided.
+
+**when setting up ip addresses make sure you are not using reserved addresses like 10.0.0.0 -> 10.255.255.255 & 192.168.0.0 -> 192.168.255.255**
+
+group D:
+
+interface R23:
+
+the subnet mask is already locked and the ip address is provided by Host D Routes.
+- ip address is 86.127.97.110
+- subnet mask is /18 (255.255.192.0)
+
+interface D1:
+
+the subnet mask needs to match interface R23, and the ip can be any of a huge range from 86.127.64.0 - 86.127.127.255.
+I just chose the ip address next to interface R23's ip.
+- ip address is 86.127.97.111
+- subnet mask is /18 (255.255.192.0)
+
+Host D Routes:
+
+destination should be default and next hop is already provided
+- destination is default (0.0.0.0/0)
+- next hop is 86.127.97.110
+
+group C:
+
+the subnet mask for this group can be whatever, I used 255.255.255.252 (/30) because I only need 2 host addresses.
+the ip addresses can also be what ever as long as they are in the same subnet and are not reserved addresses.
+
+interface R22:
+- ip address is 14.14.14.1
+- subnet mask is 255.255.255.252 (/30)
+
+interface C1:
+- ip address is 14.14.14.2
+- subnet mask is 255.255.255.252 (/30)
+
+Host C Routes:
+
+destination should be default and next hop should be the ip address of interface R22
+- destination is default (0.0.0.0/0)
+- next hop is 14.14.14.1
+
+group AB:
+
+the subnet mask is provided for interface R11 so the others in this group need to match that.
+the ip addresses can be what ever as long as they are in the same subnet and are not reserved addresses.
+
+interface R11:
+- ip address is 42.42.42.1
+- subnet mask is 255.255.255.128 (/25)
+
 interface A1:
+- ip address is 42.42.42.2
+- subnet mask is 255.255.255.128 (/25)
+
+interface B1:
+- ip address is 42.42.42.3
+- subnet mask is 255.255.255.128 (/25)
+
+Host A Routes:
+
+destination should be default and next hop should be the ip address of interface R11.
+- destination is default (0.0.0.0/0)
+- next hop is 42.42.42.1
+
+Host B Routes:
+
+destination should be default and next hop should be the ip address of interface R11.
+- destination is default (0.0.0.0/0)
+- next hop is 42.42.42.1
+<br><br><br>
+after sorting out those 3 individual groups we need to connect the 2 routers and make sure that host A (meson) & host C (cation) can connect to the internet.
+
+routers:
+
+the subnet mask is already provided for interface R21 so we just need to make sure that interface R21 and interface R13 have the same subnet mask and are on the same subnet.
+
+interface R21:
+- ip address is 112.106.18.253
+- subnet mask is 255.255.255.252 (/30) (provided)
+
+interface R13:
+- ip address is 112.106.18.254
+- subnet mask is 255.255.255.252 (/30) (provided)
+
+router R2 Routes:
+
+router R2 needs interface R13 of router R1 as the next hop address.
+- destination is default (0.0.0.0/0)
+- next hop is 112.106.18.254
+
+router R1 Routes:
+
+router R1 has 3 routes.
+the default route is already given to us and points to the internet.
+we need 2 more routes that both point to interface R21 of router R2, 1 for packets with a destination of host C, and 1 for packets with a destination of host D.
+- destination 1 is 14.14.14.2/24
+- next hop 1 is 112.106.18.253
+- destination 2 is 86.127.97.111/18
+- next hop 2 is 112.106.18.253
+- destination 3 is default (0.0.0.0/0) (provided)
+- next hop 3 is 163.172.250.1 (provided)
+
+internet:
+
+internet I Routes:
+
+we need the internet to be able to return packets to host A and host C so we need to specify their network addresses in the routing table.
+- destination 1 is 42.42.42.1/24
+- next hop 1 is 163.172.250.12 (provided)
+- destination 2 is 14.14.14.2/24
+- next hop 2 is 163.172.250.12 (provided)
+- destination 3 is default (0.0.0.0/0)
+- next hop 3 is 163.172.250.12 (provided)
+
+------------------------------------------
