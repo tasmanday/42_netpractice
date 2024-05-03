@@ -72,7 +72,7 @@ the following ip address ranges are reserved:
 
 ------------------------------------------
 ## level 1
-<br>
+
 ![level1 image](images/lvl1.PNG)
 <br><br>
 interface A1:
