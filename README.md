@@ -178,7 +178,7 @@ interface B1:
 
 the subnet mask for interface B1 must match that of interface R2 and the ip address must be in the same subnet ip range.
 this ip range is 134.118.128.0 - 134.118.255.255 but the first and last addresses are reserved and 134.118.218.254 is already taken by interface R2.
-- the possible acceptable host addresses for interface A1 are 134.118.128.1 - 134.118.255.254 excluding 134.118.218.254
+- the possible acceptable host addresses for interface A1 are 134.118.128.1 - 134.118.255.253
 - the subnet mask is 255.255.192.0
 
 Host B Routes:
@@ -202,13 +202,13 @@ Host A Routes:
 destination should be default and next hop needs to be router interface R1's ip address.
 setting the destination to default means that any packets that don't have a destination within the subnet will be passed to the next hop address which points to interface R1 of the router.
 - destination is default (0.0.0.0/0)
-- next hop is 91.84.197.254
+- next hop is 91.84.197.226
 
 interface R1:
 
 the router interface R1 already has the subnet mask provided and locked in, the ip address needs to be in the same subnet as interface A1.
 this ip range is 91.84.197.128 - 91.84.197.255 but the first and last addresses are reserved and 91.84.197.227 is already taken by interface A1.
-- the possible acceptable host addresses for interface R1 are 91.84.197.129 - 91.84.197.254 excluding 91.84.197.227
+- the possible acceptable host addresses for interface R1 are 91.84.197.129 - 91.84.197.254, excluding 91.84.197.227
 
 Router R Routes:
 
@@ -218,9 +218,9 @@ destination for router R should be default which means if a packet is not destin
 Internet I Routes:
 
 the destination for internet I should point to the network address of the subnet that interface A1 is on, combined with the CDIR of the network.
-/25 indicates that the first 25 bits of the network address represent the network.
-adding the CDIR (/25) to the network address informs the internet route that any packets addressed to ip addresses within the range of 91.84.197.128 - 91.84.197.255 should use the next hop address.
-- destination is 91.84.197.128/25
+/24 indicates that the first 24 bits of the network address represent the network.
+adding the CDIR (/24) to the network address informs the internet route that any packets addressed to ip addresses within the range of 91.84.197.0 - 91.84.197.255 should use the next hop address.
+- destination is 91.84.197.0/24
 
 ------------------------------------------
 ## level 7
@@ -257,7 +257,24 @@ interface R21:
 
 the ip address needs to be in the same subnet as interface R12, since R12's ip has been given the subnet for this pair has already been decided.
 the range of ip addresses for this subnet are 92.198.14.192 - 92.198.14.255 but the first and last addresses are reserved and 92.198.14.254 is already taken by interface R12.
-- the possible acceptable host addresses for interface A1 are 92.198.14.193 - 92.198.14.253
+- the possible acceptable host addresses for interface R21 are 92.198.14.193 - 92.198.14.253
+
+Router R2 Routes:
+
+destination should be default and next hop needs to be router R1 interface R12's ip address.
+- destination is default (0.0.0.0/0)
+- next hop is 92.198.14.254
+
+interface R22 & C1:
+
+we have 2 subnets left to choose from, 92.198.14.64 - 92.198.14.127 and 92.198.14.128 - 92.198.14.191.
+I went with 92.198.14.64 - 92.198.14.127
+
+Host C Routes:
+
+destination should be default and next hop needs to be router interface R22's ip address.
+- destination is default (0.0.0.0/0)
+- next hop is 92.198.14.65
 
 ------------------------------------------
 ## level 8
@@ -301,9 +318,11 @@ interfaces R22 & C1:
 
 for ease I continued setting the subnet mask to 255.255.255.240 (/28)
 the range for ip addresses I chose is 147.64.136.0 - 147.64.136.15 but it could be any /28 subnet that isn't already taken.
+
 interface C1:
 - ip address is 147.64.136.18
 - subnet mask is 255.255.255.240 (/28)
+
 interface R22:
 - ip address is 147.64.136.17
 - subnet mask is 255.255.255.240 (/28)
@@ -318,9 +337,11 @@ interfaces R23 & D1:
 
 the subnet mask is given to us
 the range for ip addresses I chose is 147.64.136.16 - 147.64.136.31 but it could be any /28 subnet that isn't already taken.
+
 interface D1:
 - ip address is 147.64.136.2
 - subnet mask is 255.255.255.240 (/28)
+
 interface R23:
 - ip address is 147.64.136.1
 - subnet mask is 255.255.255.240 (/28)
@@ -372,18 +393,18 @@ the subnet mask for this group can be whatever, I used 255.255.255.252 (/30) bec
 the ip addresses can also be what ever as long as they are in the same subnet and are not reserved addresses.
 
 interface R22:
-- ip address is 14.14.14.1
+- ip address is 37.37.37.1
 - subnet mask is 255.255.255.252 (/30)
 
 interface C1:
-- ip address is 14.14.14.2
+- ip address is 37.37.37.2
 - subnet mask is 255.255.255.252 (/30)
 
 Host C Routes:
 
 destination should be default and next hop should be the ip address of interface R22
 - destination is default (0.0.0.0/0)
-- next hop is 14.14.14.1
+- next hop is 37.37.37.1
 
 group AB:
 
@@ -422,28 +443,28 @@ routers:
 the subnet mask is already provided for interface R21 so we just need to make sure that interface R21 and interface R13 have the same subnet mask and are on the same subnet.
 
 interface R21:
-- ip address is 112.106.18.253
+- ip address is 112.106.16.253
 - subnet mask is 255.255.255.252 (/30) (provided)
 
 interface R13:
-- ip address is 112.106.18.254
+- ip address is 112.106.16.254
 - subnet mask is 255.255.255.252 (/30) (provided)
 
 router R2 Routes:
 
 router R2 needs interface R13 of router R1 as the next hop address.
 - destination is default (0.0.0.0/0)
-- next hop is 112.106.18.254
+- next hop is 112.106.16.254
 
 router R1 Routes:
 
 router R1 has 3 routes.
 the default route is already given to us and points to the internet.
 we need 2 more routes that both point to interface R21 of router R2, 1 for packets with a destination of host C, and 1 for packets with a destination of host D.
-- destination 1 is 14.14.14.2/24
-- next hop 1 is 112.106.18.253
+- destination 1 is 37.37.37.2/24
+- next hop 1 is 112.106.16.253
 - destination 2 is 86.127.97.111/18
-- next hop 2 is 112.106.18.253
+- next hop 2 is 112.106.16.253
 - destination 3 is default (0.0.0.0/0) (provided)
 - next hop 3 is 163.172.250.1 (provided)
 
@@ -454,7 +475,7 @@ internet I Routes:
 we need the internet to be able to return packets to host A and host C so we need to specify their network addresses in the routing table.
 - destination 1 is 42.42.42.1/24
 - next hop 1 is 163.172.250.12 (provided)
-- destination 2 is 14.14.14.2/24
+- destination 2 is 37.37.37.2/24
 - next hop 2 is 163.172.250.12 (provided)
 - destination 3 is default (0.0.0.0/0)
 - next hop 3 is 163.172.250.12 (provided)
@@ -501,16 +522,16 @@ the ranges that have already been taken are:
 luckily we only need 2 addresses for this group so we can use 255.255.255.252 (/30) as a subnet mask and chose 2 of the remaining addresses.
 
 interface R22:
-- ip address is 147.65.114.250
+- ip address is 147.65.114.193
 - subnet mask is 255.255.255.252 (/30)
 
 interface H31:
-- ip address is 147.65.114.249
+- ip address is 147.65.114.194
 - subnet mask is 255.255.255.252 (/30)
 
 Host H3 Routes:
 - destination is default (0.0.0.0/0) (provided)
-- next hop is 147.65.114.250 (interface R22 address)
+- next hop is 147.65.114.193 (interface R22 address)
 
 <br><br>
 lastly we just need to match the subnet address at interface R13 and fix the routing tables for the internet and router R1.
@@ -522,4 +543,4 @@ internet I Routes:
 - destination is 147.65.114.0/24
 
 router R1 Routes:
-- destination is 147.65.114.0/24
+- destination is 147.65.114.0/24, default also works.
