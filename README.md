@@ -73,7 +73,7 @@ the following ip address ranges are reserved:
 ------------------------------------------
 ## level 1
 
-![level1 image](images/lvl1.PNG)
+![level 1 image](images/lvl1.PNG)
 <br><br>
 interface A1:
 
@@ -93,7 +93,9 @@ this means ip address can be any in the range 211.191.0.0 - 211.191.255.255 exce
 
 ------------------------------------------
 ## level 2
-<br><br><br>
+
+![level 2 image](images/lvl2.PNG)
+<br><br>
 interface A1:
 
 subnet mask 255.255.255.224 = 11111111.11111111.11111111.11100000 = /27
