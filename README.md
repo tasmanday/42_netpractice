@@ -121,7 +121,9 @@ the original ip addresses in these boxes seem like they would work but 127.0.0.0
 
 ------------------------------------------
 ## level 3
-<br><br><br>
+
+![level 3 image](images/lvl3.PNG)
+<br><br>
 interface A1:
 
 the subnet mask for all interfaces need to match the given unchangable mask of interface C1.
@@ -146,13 +148,17 @@ the ip address for interface C1 must be:
 
 ------------------------------------------
 ## level 4
-<br><br><br>
+
+![level 4 image](images/lvl4.PNG)
+<br><br>
 the subnet masks for interface A1, interface B1, & interface R1 must all be the same and must be able to support 3 host addresses.
 the ip addresses for interface B1, & interface R1 must be in the same subnet range as the given A1 ip (122.130.111.132).
 
 ------------------------------------------
 ## level 5
-<br><br><br>
+
+![level 5 image](images/lvl5.PNG)
+<br><br>
 interface A1:
 
 the subnet mask for interface A1 must match that of interface R1 and the ip address must be in the same subnet ip range.
@@ -183,7 +189,9 @@ as above with Host A the destination can be default and the next hop is the ip a
 
 ------------------------------------------
 ## level 6
-<br><br><br>
+
+![level 6 image](images/lvl6.PNG)
+<br><br>
 interface A1:
 
 subnet mask needs to match interface R1
@@ -216,7 +224,9 @@ adding the CDIR (/25) to the network address informs the internet route that any
 
 ------------------------------------------
 ## level 7
-<br><br><br>
+
+![level 7 image](images/lvl7.PNG)
+<br><br>
 for level 7 we need to establish 3 separate networks, host A - router R1, router R1 - router R2, router R2 - host C.
 to do this we need to use a subnet mask that can create at least 3 subnets which means /26 (255.255.255.192) or higher.
 - I set the subnet mask to 255.255.255.192 for all interfaces.
@@ -251,7 +261,9 @@ the range of ip addresses for this subnet are 92.198.14.192 - 92.198.14.255 but 
 
 ------------------------------------------
 ## level 8
-<br><br><br>
+
+![level 8 image](images/lvl8.PNG)
+<br><br>
 Internet I Routes:
 
 the destination is already given so we just need to set the next hop to the ip address of interface R12.
@@ -321,7 +333,9 @@ destination should be default and next hop needs to be router R2 interface R23's
 
 ------------------------------------------
 ## level 9
-<br><br><br>
+
+![level 9 image](images/lvl9.PNG)
+<br><br>
 for this level we have 3 seperate networks that we need to organise and then we can connect them all together.
 the individual networks are:
 - group AB - interface A1, interface B1, & interface R11
@@ -447,7 +461,9 @@ we need the internet to be able to return packets to host A and host C so we nee
 
 ------------------------------------------
 ## level 10
-<br><br><br>
+
+![level 10 image](images/lvl10.PNG)
+<br><br>
 for this level the structure is pretty much the same as level 9 in that we have 3 individual groups to work on first and then connect them all together. the challenge with this one though is that we only have one destination on the internet's routing table which means that we are limited in what subnets we can use.
 
 group H1/H2:
