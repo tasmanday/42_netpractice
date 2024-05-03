@@ -72,9 +72,9 @@ the following ip address ranges are reserved:
 
 ------------------------------------------
 ## level 1
-<br><br>
-![level1 image](images/lvl1.PNG)
 <br>
+![level1 image](images/lvl1.PNG)
+<br><br>
 interface A1:
 
 subnet mask is 255.255.255.0 so the first 3 bytes of the ip need to match interface B1's ip (104.98.23.12).
